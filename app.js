@@ -4,6 +4,7 @@ const app = express()
 
 // require middleware
 const { engine } = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 // require internal files
 require('./config/mongoose')
@@ -13,8 +14,16 @@ app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.set('views', './views')
 
-// test server
+// go through here first
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// router setting
 app.get('/', (req, res) => res.render('index'))
+app.post('/', (req, res) => {
+  const url = req.body
+  console.log(url)
+  return res.redirect('/')
+})
 
 // start sever and listen
 app.listen(3000, () =>
