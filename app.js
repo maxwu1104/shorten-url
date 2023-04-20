@@ -5,6 +5,9 @@ const app = express()
 // require middleware
 const { engine } = require('express-handlebars')
 
+// require internal files
+require('./config/mongoose')
+
 // view engine setting
 app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
