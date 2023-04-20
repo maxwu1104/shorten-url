@@ -21,6 +21,17 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // router setting
 app.get('/', (req, res) => res.render('index'))
+
+app.get('/brand/:id', (req, res) => {
+  const id = req.params.id
+  Url.find({ newUrl: { $regex: `${id}` } })
+    .lean()
+    .exec()
+    .then((url) => {
+      res.redirect(url[0].url)
+    })
+})
+
 app.post('/', (req, res) => {
   const inputUrl = req.body
   Url.find()
