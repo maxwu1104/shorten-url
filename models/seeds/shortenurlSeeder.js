@@ -1,5 +1,5 @@
 const db = require('../../config/mongoose')
-const Url = require('../shortenurl')
+const Url = require('../shortenUrl')
 
 db.once('open', () => {
   Url.create({
