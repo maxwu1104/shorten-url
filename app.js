@@ -10,8 +10,8 @@ const bodyParser = require('body-parser')
 require('./config/mongoose')
 
 // view engine setting
-app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
-app.set('view engine', 'hbs')
+app.engine('.hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', '.hbs')
 app.set('views', './views')
 
 // go through here first
