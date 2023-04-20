@@ -1,4 +1,19 @@
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
 # npm
 node_modules
+README.md
+*.log
+*.gz
 .eslintrc.js
+
+# dotenv
 .env
