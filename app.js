@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 // require internal files
 require('./config/mongoose')
 const Url = require('./models/shortenUrl')
+const getFiveRandomWords = require('./models/getFiveRandomWords')
 
 // view engine setting
 app.engine('.hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
@@ -29,9 +30,10 @@ app.post('/', (req, res) => {
         const targetUrl = urls.find((url) => url.url === inputUrl.url)
         return res.render('index', { targetUrl: targetUrl.newUrl })
       } else {
+        const randomWords = getFiveRandomWords()
         const url = new Url({
           url: inputUrl.url,
-          newUrl: 'https://brand/12345'
+          newUrl: `https://brand/${randomWords}`
         })
         url.save().then(() => {
           return res.render('index', { url: url.newUrl })
