@@ -1,8 +1,8 @@
 <div class="container pt-5">
   <form action="/" method='POST' class="col-8 mx-auto text-center">
     <input type="url" name="url" id="url" class="w-100 my-5">
-    <p>資料庫未有，所以創造了一個新的：{{#if url}} {{url}} {{/if}}</p>
-    <p>資料庫有，所以返回原本有創造過：{{#if targetUrl}} {{targetUrl}}{{/if}}</p>
+    <p>資料庫未有，所以創造了一個新的：{{#if newUrl}} {{newUrl}} {{/if}}</p>
+    <p>資料庫有，所以返回原本有創造過：{{#if existingUrl}} {{existingUrl}}{{/if}}</p>
     <button class="btn btn-primary">Shorten</button>
   </form>
 </div>

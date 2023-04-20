@@ -34,24 +34,22 @@ app.get('/brand/:id', (req, res) => {
 
 app.post('/', (req, res) => {
   const inputUrl = req.body
-  Url.find()
+  Url.find({ url: inputUrl.url })
     .lean()
-    .then((urls) => {
-      if (urls.some((url) => url.url === inputUrl.url)) {
-        const targetUrl = urls.find((url) => url.url === inputUrl.url)
-        return res.render('index', { targetUrl: targetUrl.newUrl })
+    .exec()
+    .then((url) => {
+      if (url.length === 1) {
+        return res.render('index', { existingUrl: url[0].newUrl })
       } else {
-        const randomWords = getFiveRandomWords()
         const url = new Url({
           url: inputUrl.url,
-          newUrl: `https://brand/${randomWords}`
+          newUrl: `https://brand/${getFiveRandomWords()}`
         })
         url.save().then(() => {
-          return res.render('index', { url: url.newUrl })
+          return res.render('index', { newUrl: url.newUrl })
         })
       }
     })
-    .catch((_error) => console.log('error'))
 })
 
 // start sever and listen
