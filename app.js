@@ -17,6 +17,7 @@ app.set('views', './views')
 
 // go through here first
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static('public'))
 
 // router setting
 app.use(routes)

@@ -1,8 +1,57 @@
-<div class="container pt-5">
-  <form action="/" method='POST' class="col-8 mx-auto text-center">
-    <input type="url" name="url" id="url" class="w-100 my-5">
-    <p>資料庫未有，所以創造了一個新的：{{#if newUrl}} {{newUrl}} {{/if}}</p>
-    <p>資料庫有，所以返回原本有創造過：{{#if existingUrl}} {{existingUrl}}{{/if}}</p>
-    <button class="btn btn-primary">Shorten</button>
+<div class="container col-xl-4 mt-5 p-5 border border-secondary rounded"
+  style="display:flex;flex-direction:column;align-items:center;">
+  <h3>URL Shortener</h3>
+  <img src="/image/ExportedContentImage_00.png" alt="123" class="my-4" style="width: 25%;">
+  <form action="/" method='POST'
+    class="w-100 mx-auto text-center d-block {{#if newUrl}} visually-hidden {{/if}} {{#if existingUrl}} visually-hidden {{/if}}">
+    <input type="url" name="url" id="url" class="w-100 my-4 p-2 " placeholder="Input URL here">
+    <button type='submit'
+      class="btn btn-primary w-100 {{#if newUrl}} visually-hidden {{/if}} {{#if existingUrl}} visually-hidden {{/if}}">
+      Shorten
+    </button>
   </form>
+
+  {{#if newUrl}}
+  <div class="w-100 mt-3">
+    <div>
+      <h5>Success! Please use this link:</h5>
+      <p><a href=" {{newUrl}}" id="copy-target">{{newUrl}}</a></p>
+    </div>
+    <button id="copy" class="btn btn-primary w-100">Copy</button>
+  </div>
+  {{/if}}
+
+  {{#if existingUrl}}
+  <div class="w-100 mt-3">
+    <div>
+      <h5>URL has already been shorten:</h5>
+      <p><a href="{{existingUrl}}" id="copy-target">{{existingUrl}}</a></p>
+    </div>
+    <button id="copy" class="btn btn-primary w-100">Copy</button>
+  </div>
+  {{/if}}
 </div>
+
+{{#if existingUrl}}
+<script>
+  const copyTarget = document.querySelector('#copy-target')
+  const copyButton = document.querySelector('#copy')
+
+  copyButton.addEventListener('click', function onClickCopyButton(event) {
+    navigator.clipboard.writeText(copyTarget.textContent)
+    alert('已複製到剪貼簿')
+  })
+</script>
+{{/if}}
+
+{{#if newUrl}}
+<script>
+  const copyTarget = document.querySelector('#copy-target')
+  const copyButton = document.querySelector('#copy')
+
+  copyButton.addEventListener('click', function onClickCopyButton(event) {
+    navigator.clipboard.writeText(copyTarget.textContent)
+    alert('已複製到剪貼簿')
+  })
+</script>
+{{/if}}

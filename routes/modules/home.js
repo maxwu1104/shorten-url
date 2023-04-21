@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
         const value = await getFiveRandomWords()
         const url = new Url({
           url: inputUrl.url,
-          newUrl: `https://brand/${value}`
+          newUrl: `http://localhost:3000/brand/${value}`
         })
         url.save().then(() => {
           return res.render('index', { newUrl: url.newUrl })
