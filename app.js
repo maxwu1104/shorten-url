@@ -37,13 +37,14 @@ app.post('/', (req, res) => {
   Url.find({ url: inputUrl.url })
     .lean()
     .exec()
-    .then((url) => {
+    .then(async (url) => {
       if (url.length === 1) {
         return res.render('index', { existingUrl: url[0].newUrl })
       } else {
+        const value = await getFiveRandomWords()
         const url = new Url({
           url: inputUrl.url,
-          newUrl: `https://brand/${getFiveRandomWords()}`
+          newUrl: `https://brand/${value}`
         })
         url.save().then(() => {
           return res.render('index', { newUrl: url.newUrl })
