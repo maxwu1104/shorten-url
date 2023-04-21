@@ -7,7 +7,7 @@ router.get('/', (req, res) => res.render('index'))
 
 router.post('/', (req, res) => {
   const inputUrl = req.body
-  Url.find({ url: inputUrl.url })
+  Url.find({ $or: [{ url: inputUrl.url }, { newUrl: inputUrl.url }] })
     .lean()
     .exec()
     .then(async (url) => {
