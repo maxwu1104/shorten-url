@@ -8,8 +8,7 @@ const bodyParser = require('body-parser')
 
 // require internal files
 require('./config/mongoose')
-const Url = require('./models/shortenUrl')
-const getFiveRandomWords = require('./models/getFiveRandomWords')
+const routes = require('./routes/index')
 
 // view engine setting
 app.engine('.hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
@@ -20,38 +19,7 @@ app.set('views', './views')
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // router setting
-app.get('/', (req, res) => res.render('index'))
-
-app.get('/brand/:id', (req, res) => {
-  const id = req.params.id
-  Url.find({ newUrl: { $regex: `${id}` } })
-    .lean()
-    .exec()
-    .then((url) => {
-      res.redirect(url[0].url)
-    })
-})
-
-app.post('/', (req, res) => {
-  const inputUrl = req.body
-  Url.find({ url: inputUrl.url })
-    .lean()
-    .exec()
-    .then(async (url) => {
-      if (url.length === 1) {
-        return res.render('index', { existingUrl: url[0].newUrl })
-      } else {
-        const value = await getFiveRandomWords()
-        const url = new Url({
-          url: inputUrl.url,
-          newUrl: `https://brand/${value}`
-        })
-        url.save().then(() => {
-          return res.render('index', { newUrl: url.newUrl })
-        })
-      }
-    })
-})
+app.use(routes)
 
 // start sever and listen
 app.listen(3000, () =>
