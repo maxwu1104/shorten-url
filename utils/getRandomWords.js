@@ -1,6 +1,6 @@
-const Url = require('./shortenUrl')
+const Url = require('../models/shortenUrl')
 
-function getFiveRandomWords () {
+function getRandomWords (amount) {
   const upperWord = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const lowerWord = 'abcdefghijklmnopqrstuvwxyz'
   const number = '1234567890'
@@ -8,20 +8,20 @@ function getFiveRandomWords () {
 
   let words = ''
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < amount; i++) {
     words += string.charAt(Math.floor(Math.random() * string.length))
   }
 
-  return Url.find({ newUrl: { $regex: `${words}` } })
+  return Url.findOne({ shortUrl: { $regex: `${words}` } })
     .lean()
     .exec()
     .then((url) => {
-      if (url.length === 1) {
-        return getFiveRandomWords()
+      if (url) {
+        return getRandomWords(amount)
       } else {
         return words
       }
     })
 }
 
-module.exports = getFiveRandomWords
+module.exports = getRandomWords
