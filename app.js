@@ -9,6 +9,9 @@ const bodyParser = require('body-parser')
 // require internal files
 require('./config/mongoose')
 const routes = require('./routes/index')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 // view engine setting
 app.engine('.hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
@@ -23,6 +26,7 @@ app.use(express.static('public'))
 app.use(routes)
 
 // start sever and listen
-app.listen(3000, () =>
+const PORT = process.env.PORT
+app.listen(PORT, () =>
   console.log('Express is working on http://localhost:3000')
 )
