@@ -1,10 +1,16 @@
-<div class="container col-xl-4 mt-5 p-5 border border-secondary rounded"
-  style="display:flex;flex-direction:column;align-items:center;">
+<div class="container col-lg-4 p-5 border border-secondary rounded"
+  style="display:flex;flex-direction:column;align-items:center;margin-top:100px;">
   <h3>URL Shortener</h3>
   <img src="/image/ExportedContentImage_00.png" alt="123" class="my-4" style="width: 25%;">
   <form action="/" method='POST'
     class="w-100 mx-auto text-center d-block {{#if newUrl}} visually-hidden {{/if}} {{#if existingUrl}} visually-hidden {{/if}}">
-    <input type="url" name="url" id="url" class="w-100 my-4 p-2 " placeholder="Input URL here">
+    {{#if message}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+    <input type="url" name="url" id="url" class="w-100 my-4 p-2 " placeholder="Input URL here" value="{{url}}">
     <button type='submit'
       class="btn btn-primary w-100 {{#if newUrl}} visually-hidden {{/if}} {{#if existingUrl}} visually-hidden {{/if}}">
       Shorten
