@@ -5,7 +5,7 @@ const getRandomWords = require('../../utils/getRandomWords')
 
 router.get('/', (req, res) => res.render('index'))
 
-router.get('/:shortUrl', (req, res) => {
+router.get('/:shortUrl(\\w{5})', (req, res) => {
   const target = req.params.shortUrl
   Url.findOne({ shortUrl: { $regex: `${target}` } })
     .lean()
